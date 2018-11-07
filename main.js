@@ -21,11 +21,9 @@ function searchPokes(event) {
     // since we're changing the pokemon's name we're searching, reset the setCode stuff so searhAPI re runs the set selecting code
     selectedSetCode = "";
     setSelected = false;
-    console.log('current selected text while deleting = ' + selectedSetCode);
   } else if (inputType == "insertText") {
     // add to string
     userInput += key;
-    console.log('current selected text while typing = ' + selectedSetCode);
   }
 
   // we're empty searching, so also clear out everything, reset the setSelected state
@@ -75,7 +73,6 @@ function searchAPI(pokemonName, setCode) {
             <div id="thumbnail">
               <img id="thumbnalIMG" src=${card.imageUrl} />
             </div>
-            Set: ${card.set}
           </div>`;
 
         if (!setArr.includes(card.set)) {

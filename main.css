@@ -24,10 +24,14 @@ body {
 }
 #searchBar {
   display: block;
-  margin-bottom: 20px;
   width: 100%;
-  font-size: 24px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 30px;
   padding-left: 5px;
+  margin: auto;
+  margin-bottom: 20px;
+  border: 1px solid gray;
 }
 #setDropdownWrap {
   width: 100%;
@@ -38,7 +42,9 @@ body {
 #setDropdown {
   width: 100%;
   border: 1px solid #ccc;
-  font-size: 20px;
+  font-size: 30px;
+  line-height: 40px;
+  height: 40px;
   background-color: white;
 }
 .dropOption {
