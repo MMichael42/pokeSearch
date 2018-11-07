@@ -1,0 +1,24 @@
+<html>
+  <head>
+   <link rel="stylesheet" href="main.css">
+   <title>PTCG Search</title>
+  </head>
+  
+  <body>  
+    <h1 id="header1">PTCG</h1>
+    <input type="text" oninput="searchPokes(event)" placeholder="search for a card" id="searchBar" />
+    
+    <div id="setDropdownWrap">
+      <select id="setDropdown" name="sets" onchange="setSelect()">
+        <option value="" selected>All Sets</option>
+        <!-- <option class="dropOption" value="0">Base Set 1</option>
+        <option class="dropOption" value="1">Base Set 2</option> -->
+      </select>
+    </div>
+    
+    <div id="searchResults">
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
