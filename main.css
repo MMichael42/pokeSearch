@@ -60,11 +60,11 @@ body {
   justify-content: center;
 }
 #cardContainer {
-  max-width: 245px;
+  width: 400px;
   border: 0px solid gray;
   margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 #thumbnail {
   width: 100%;
@@ -84,10 +84,10 @@ body {
   padding: 05px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (min-width: 426px) {
   #cardContainer {
-    width: 400px;
-    margin-left: 0px;
-    margin-right: 0px;
+    width: 245px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
