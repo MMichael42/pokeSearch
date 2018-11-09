@@ -42,17 +42,17 @@ function searchPokes(event) {
     dropDown.style.display = "block";
   } else if (userInput === "") {
     dropDown.style.display = "none";
-    clearDiv(searchResultsDiv);
+    clear(searchResultsDiv, userInput);
   }
 } //  end of searchPokes func
 
 function searchAPI(pokemonName, setCode) {
   let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
-
+  console.log(fullURL);
   if (pokemonName === "") { // after we load results of last search, see if the search String is currently "", if so clear out div.
     console.log("empty search string from inside searchAPI");
-    clearDiv(searchResultsDiv);
-    clearDiv(dropDownList);
+    clear(searchResultsDiv, userInput);
+    clear(dropDownList, userInput);
     return;
   }
   
@@ -92,8 +92,8 @@ function searchAPI(pokemonName, setCode) {
         dropDownList.innerHTML = '<option value="" selected>All Sets</option>' + dropDownSetItem;
       }
       if (searchBar.value === "") { 
-        clearDiv(searchResultsDiv);
-        clearDiv(dropDownList);
+        clear(searchResultsDiv, userInput);
+        clear(dropDownList, userInput);
       }
     });
 }
@@ -112,9 +112,10 @@ function setSelect() {
   searchAPI(userInput, selectedSetCode);
 }
 
-function clearDiv(div) {
+function clear(div, input) {
+  console.log('clearing out the div and input given');
   if (div !== "") {
-    console.log('empty out the div');
     div.innerHTML = "";
   }
-} // enf of clearDiv func
+  input = "";
+} // enf of clear func
