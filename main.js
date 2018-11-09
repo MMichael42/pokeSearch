@@ -4,36 +4,20 @@ let dropDownList = document.getElementById('setDropdown');
 let searchResultsDiv = document.getElementById('searchResults');
 
 let pokemonAPIurlString = "https://api.pokemontcg.io/v1/";
-let userInput = "";
 let selectedSetCode = "";
 let setDict = {};
 let setSelected = false;
 
 function searchPokes(event) {
-  let key = event.data;
+  let userInput = searchBar.value;
   let inputType = event.inputType;
 
-  if (inputType !== "insertText" && inputType !== "deleteContentBackward") {
-    // do nothing
-    return;
-  } else if (inputType === "deleteContentBackward" && userInput !== "") {
-    // backspace and search string is not empty, delete last character
-    userInput = userInput.slice(0, -1);
+  if (inputType === "deleteContentBackward" && userInput !== "") {
     // since we're changing the pokemon's name we're searching, reset the setCode stuff so searhAPI re runs the set selecting code
     selectedSetCode = "";
     setSelected = false;
-  } else if (inputType === "insertText") {
-    // add to string
-    userInput += key;
   }
-
-  // we're empty searching, so also clear out everything, reset the setSelected state
-  if (searchBar.value === "") {
-    userInput = "";
-    selectedSetCode = "";
-    setSelected = false;
-  }
-
+  
   // good to go, send off userInput and selectedSetCode to the API:
   if (userInput !== "") { // search if the string isn't empty
     // submit to search
@@ -51,8 +35,8 @@ function searchAPI(pokemonName, setCode) {
   console.log(fullURL);
   if (pokemonName === "") { // after we load results of last search, see if the search String is currently "", if so clear out div.
     console.log("empty search string from inside searchAPI");
-    clear(searchResultsDiv, userInput);
-    clear(dropDownList, userInput);
+    clear(searchResultsDiv, pokemonName);
+    clear(dropDownList, pokemonName);
     return;
   }
   
@@ -91,17 +75,19 @@ function searchAPI(pokemonName, setCode) {
         });
         dropDownList.innerHTML = '<option value="" selected>All Sets</option>' + dropDownSetItem;
       }
-      if (searchBar.value === "") { 
-        clear(searchResultsDiv, userInput);
-        clear(dropDownList, userInput);
+      if (searchBar.value === "") {
+        setSelected = false; 
+        clear(searchResultsDiv, pokemonName);
+        clear(dropDownList, pokemonName);
       }
     });
 }
 
 function setSelect() {
-  setSelected = true;
   let selectedList = document.getElementById('setDropdown');
   let selectedText = selectedList.options[selectedList.selectedIndex].text;
+  let userInput = searchBar.value;
+  setSelected = true;
   selectedSetCode = setDict[selectedText];
 
   // if the user has selected all sets, clear out the set code and reset the setSelected state
