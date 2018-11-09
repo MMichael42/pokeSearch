@@ -60,17 +60,16 @@ body {
   justify-content: center;
 }
 #cardContainer {
-  width: 245px;
+  max-width: 100%;
   border: 0px solid gray;
   margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
-  text-align: left;
 }
 #thumbnail {
   width: 100%;
   height: auto;
-  border: 0px solid black;
+  border: 0px solid rgb(121, 115, 115);
   margin: auto;
   margin-bottom: 10px;
 }
@@ -83,4 +82,12 @@ body {
   width: 100%;
   text-align: left;
   padding: 05px;
+}
+
+@media screen and (max-width: 425px) {
+  #cardContainer {
+    width: 400px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
 }
