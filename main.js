@@ -8,6 +8,8 @@ let selectedSetCode = "";
 let setDict = {};
 let setSelected = false;
 
+let deBouncedAPIcall = debounced(200, searchAPI);
+
 function searchPokes(event) {
   let userInput = searchBar.value;
   let inputType = event.inputType;
@@ -17,11 +19,12 @@ function searchPokes(event) {
     selectedSetCode = "";
     setSelected = false;
   }
-  
+
   // good to go, send off userInput and selectedSetCode to the API:
   if (userInput !== "") { // search if the string isn't empty
     // submit to search
-    searchAPI(userInput, selectedSetCode);
+    // searchAPI(userInput, selectedSetCode);
+    deBouncedAPIcall(userInput, selectedSetCode);
     // and show the set dropdown list
     dropDown.style.display = "block";
   } else if (userInput === "") {
@@ -48,12 +51,13 @@ function searchAPI(pokemonName, setCode) {
       let cards = json.cards;
       let output = ''; // empty variable to stuff all the html in
       let setArr = []; // array for the card set names, we can probably refactor this out, just use setDict
-      
+      // console.log(cards);
+      console.log(cards.length);
       cards.forEach( card => {
         output += 
           `<div id="cardContainer">
             <div id="thumbnail">
-              <img id="thumbnalIMG" src=${card.imageUrl} />
+              <img id="thumbnalIMG" src=${card.imageUrl} name=${card.id}/>
             </div>
           </div>`;
 
@@ -104,4 +108,20 @@ function clear(div, input) {
     div.innerHTML = "";
   }
   input = "";
+  selectedSetCode = "";
+  setSelected = false;
 } // enf of clear func
+
+// debounce function I pulled off of google
+function debounced(delay, fn) {
+  let timerId;
+  return function (...args) {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    timerId = setTimeout(() => {
+      fn(...args);
+      timerId = null;
+    }, delay);
+  }
+}
