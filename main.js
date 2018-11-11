@@ -34,12 +34,16 @@ function searchPokes(event) {
 } //  end of searchPokes func
 
 function searchAPI(pokemonName, setCode) {
+  // we're searching again, so clear out the images on screen
+  searchResultsDiv.innerHTML = '' // there is probably a more optimized way to do this
+
   let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
   console.log(fullURL);
   if (pokemonName === "") { // after we load results of last search, see if the search String is currently "", if so clear out div.
     console.log("empty search string from inside searchAPI");
     clear(searchResultsDiv, pokemonName);
     clear(dropDownList, pokemonName);
+    selectedSetCode = '';
     return;
   }
   
@@ -49,26 +53,38 @@ function searchAPI(pokemonName, setCode) {
     })
     .then( json => {
       let cards = json.cards;
-      let output = ''; // empty variable to stuff all the html in
       let setArr = []; // array for the card set names, we can probably refactor this out, just use setDict
-      // console.log(cards);
-      console.log(cards.length);
       cards.forEach( card => {
-        output += 
-          `<div id="cardContainer">
-            <div id="thumbnail">
-              <img id="thumbnalIMG" src=${card.imageUrl} name=${card.id}/>
+        // console.log(card);
+        let output =
+          `<div class="cardContainer">
+            <div class="thumbnail">
+              <img class="thumbnailIMG" id="${card.id}" src="" />
             </div>
-          </div>`;
+          </div>`
+        ;
+        searchResultsDiv.innerHTML += output;
 
+        let newImg = new Image();
+        newImg.cardData = {}
+        newImg.cardData.cardID = card.id;
+        newImg.src = card.imageUrl;
+      
+        newImg.onload = function () {
+          // console.log(this.cardData);
+          let ele = document.getElementById(this.cardData.cardID);
+          if (ele) { ele.src = this.src; } // if the element is still on screen, add the image in
+          // it might not be on screen because of the search term changing faster than images can be pulled from the server, I think.
+        }
+        
+        // if the set array doesn't already include this set, then add it
+        // and add the set code to the setDict
         if (!setArr.includes(card.set)) {
           setArr.push(card.set);
           setDict[card.set] = card.setCode;
         }
       });
-  
-      searchResultsDiv.innerHTML = output;
-
+      // console.log(searchResultsDiv.innerHTML);
       if (!setSelected) {
         // sort the card set array, then loop through it to add the list to the dropdown menu
         setArr.sort();
