@@ -11,19 +11,16 @@ let setSelected = false;
 let deBouncedAPIcall = debounced(200, searchAPI);
 
 function searchPokes(event) {
-  let userInput = searchBar.value;
-  let inputType = event.inputType;
-
-  if (inputType === "deleteContentBackward" && userInput !== "") {
-    // since we're changing the pokemon's name we're searching, reset the setCode stuff so searhAPI re runs the set selecting code
-    selectedSetCode = "";
-    setSelected = false;
+  // clear out the set selection when the search value is 0 characters long
+  if (searchBar.value.length === 0) { 
+    setReset();
   }
+
+  let userInput = searchBar.value;
 
   // good to go, send off userInput and selectedSetCode to the API:
   if (userInput !== "") { // search if the string isn't empty
     // submit to search
-    // searchAPI(userInput, selectedSetCode);
     deBouncedAPIcall(userInput, selectedSetCode);
     // and show the set dropdown list
     dropDown.style.display = "block";
@@ -43,7 +40,6 @@ function searchAPI(pokemonName, setCode) {
     console.log("empty search string from inside searchAPI");
     clear(searchResultsDiv, pokemonName);
     clear(dropDownList, pokemonName);
-    selectedSetCode = '';
     return;
   }
   
@@ -59,7 +55,7 @@ function searchAPI(pokemonName, setCode) {
         let output =
           `<div class="cardContainer">
             <div class="thumbnail">
-              <img class="thumbnailIMG" id="${card.id}" src="" />
+              <img class="thumbnailIMG" id="${card.id}" src="images/loading.gif" />
             </div>
           </div>`
         ;
@@ -71,7 +67,6 @@ function searchAPI(pokemonName, setCode) {
         newImg.src = card.imageUrl;
       
         newImg.onload = function () {
-          // console.log(this.cardData);
           let ele = document.getElementById(this.cardData.cardID);
           if (ele) { ele.src = this.src; } // if the element is still on screen, add the image in
           // it might not be on screen because of the search term changing faster than images can be pulled from the server, I think.
@@ -84,7 +79,7 @@ function searchAPI(pokemonName, setCode) {
           setDict[card.set] = card.setCode;
         }
       });
-      // console.log(searchResultsDiv.innerHTML);
+
       if (!setSelected) {
         // sort the card set array, then loop through it to add the list to the dropdown menu
         setArr.sort();
@@ -96,7 +91,7 @@ function searchAPI(pokemonName, setCode) {
         dropDownList.innerHTML = '<option value="" selected>All Sets</option>' + dropDownSetItem;
       }
       if (searchBar.value === "") {
-        setSelected = false; 
+        setReset();
         clear(searchResultsDiv, pokemonName);
         clear(dropDownList, pokemonName);
       }
@@ -112,10 +107,15 @@ function setSelect() {
 
   // if the user has selected all sets, clear out the set code and reset the setSelected state
   if (selectedText === 'All Sets') {
-    selectedSetCode = '';
-    setSelected = false;
+    setReset();
   }
   searchAPI(userInput, selectedSetCode);
+}
+
+function setReset() {
+  console.log('set reset');
+  selectedSetCode = '';
+  setSelected = false;
 }
 
 function clear(div, input) {
