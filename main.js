@@ -36,6 +36,7 @@ function searchAPI(pokemonName, setCode) {
 
   let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
   console.log(fullURL);
+  
   if (pokemonName === "") { // after we load results of last search, see if the search String is currently "", if so clear out div.
     console.log("empty search string from inside searchAPI");
     clear(searchResultsDiv, pokemonName);
@@ -90,6 +91,7 @@ function searchAPI(pokemonName, setCode) {
         });
         dropDownList.innerHTML = '<option value="" selected>All Sets</option>' + dropDownSetItem;
       }
+      
       if (searchBar.value === "") {
         setReset();
         clear(searchResultsDiv, pokemonName);
@@ -126,7 +128,7 @@ function clear(div, input) {
   input = "";
   selectedSetCode = "";
   setSelected = false;
-} // enf of clear func
+} // end of clear func
 
 // debounce function I pulled off of google
 function debounced(delay, fn) {
