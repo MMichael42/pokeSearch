@@ -44,7 +44,7 @@ function searchAPI(pokemonName, setCode) {
   fetch(fullURL)
     .then( response => {
       for (let head of response.headers) { headers[head[0]] = head[1]; }
-      console.log(headers);
+      // console.log(headers);
       return response.json();
     })
     .then( json => {
