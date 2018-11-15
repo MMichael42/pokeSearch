@@ -88,9 +88,8 @@ body {
 }
 .thumbnailIMG:hover {
   transform: scale(1.0);
-  z-index: 10;
   /* border: 1px solid black; */
-  box-shadow: 1px 1px 8px 2px #aaaaaa;
+  /* box-shadow: 1px 1px 3px 1px #aaaaaa; */
 }
 #textInfo {
   border: 0px solid black;
@@ -106,9 +105,9 @@ body {
     margin-right: 10px;
   }
   .thumbnailIMG:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     z-index: 10;
     border: 0px solid #858585;
-    box-shadow: 1px 1px 8px 2px #aaaaaa;
+    box-shadow: 1px 1px 3px 1px #aaaaaa;
   }
 }

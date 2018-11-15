@@ -43,14 +43,16 @@ function searchAPI(pokemonName, setCode) {
     clear(dropDownList, pokemonName);
     return;
   }
-  
+
   fetch(fullURL)
     .then( response => {
+      for (let head of response.headers) { console.log(head) }
       return response.json();
     })
     .then( json => {
       let cards = json.cards;
       let setArr = []; // array for the card set names, we can probably refactor this out, just use setDict
+      
       cards.forEach( card => {
         // console.log(card);
         let output =
