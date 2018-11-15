@@ -17,6 +17,7 @@ function searchPokes(event) {
   }
 
   let userInput = searchBar.value;
+  let dropDownEle = document.getElementById('setDropdown');
 
   // good to go, send off userInput and selectedSetCode to the API:
   if (userInput !== "") { // search if the string isn't empty
@@ -71,17 +72,18 @@ function searchAPI(pokemonName, setCode) {
       if (searchBar.value === "") {
         setReset();
         clear(searchResultsDiv, pokemonName);
-        clear(dropDownList, pokemonName);
+        // clear(dropDownList, pokemonName);
       }
     });
 }
 
-function setSelect() {
+function setSelect(value) {
   setSelected = true;
+  console.log(value);
   let selectedList = document.getElementById('setDropdown');
   let selectedText = selectedList.options[selectedList.selectedIndex].text;
   let userInput = searchBar.value;
-  selectedSetCode = setDict[selectedText];
+  selectedSetCode = value;
 
   // if the user has selected all sets, clear out the set code and reset the setSelected state
   if (selectedText === 'All Sets') {
@@ -97,7 +99,7 @@ function setReset() {
 }
 
 function clear(div, input) {
-  console.log('clearing out the div and input given');
+  console.log('clearing out the div and input given: ' + div);
   if (div !== "") {
     div.innerHTML = "";
   }
