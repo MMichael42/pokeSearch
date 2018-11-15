@@ -34,6 +34,7 @@ function searchAPI(pokemonName, setCode) {
   // we're searching again, so clear out the images on screen
   searchResultsDiv.innerHTML = '' // there is probably a more optimized way to do this
   
+  
   let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
   console.log(fullURL);
 
@@ -47,18 +48,20 @@ function searchAPI(pokemonName, setCode) {
     })
     .then( json => {
       let cards = json.cards;
-      let setArr = []; // array for the card set names, we can probably refactor this out, just use setDict
+      let setArr = [];
       
       createCardHTML(cards, setDict, searchResultsDiv);
+
       
       if (!setSelected) {
-        let setNames = []; // going to use this array to sort the set names alphabetically
-        for (var key in setDict) {
-          setNames.push(key);
-        }
-        setNames.sort();
+        cards.forEach( card => {
+          if (!setArr.includes(card.set)) {
+            setArr.push(card.set);
+          }
+        });
+        setArr.sort();
         let dropDownSetItem = '';
-        setNames.forEach( setName => {
+        setArr.forEach( setName => {
           dropDownSetItem += 
             `<option class="dropOption" value="${setDict[setName]}">${setName}</option>`;
         })
@@ -74,10 +77,10 @@ function searchAPI(pokemonName, setCode) {
 }
 
 function setSelect() {
+  setSelected = true;
   let selectedList = document.getElementById('setDropdown');
   let selectedText = selectedList.options[selectedList.selectedIndex].text;
   let userInput = searchBar.value;
-  setSelected = true;
   selectedSetCode = setDict[selectedText];
 
   // if the user has selected all sets, clear out the set code and reset the setSelected state
@@ -105,7 +108,6 @@ function clear(div, input) {
 
 
 function createCardHTML(cardsArr, setObj, htmlEle) {
-  
   cardsArr.forEach( card => {
     let output =
       `<div class="cardContainer">
