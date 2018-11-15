@@ -33,65 +33,36 @@ function searchPokes(event) {
 function searchAPI(pokemonName, setCode) {
   // we're searching again, so clear out the images on screen
   searchResultsDiv.innerHTML = '' // there is probably a more optimized way to do this
-
+  
   let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
   console.log(fullURL);
-  
-  if (pokemonName === "") { // after we load results of last search, see if the search String is currently "", if so clear out div.
-    console.log("empty search string from inside searchAPI");
-    clear(searchResultsDiv, pokemonName);
-    clear(dropDownList, pokemonName);
-    return;
-  }
 
+  let headers = {} // to store the response headers
+  
   fetch(fullURL)
     .then( response => {
-      for (let head of response.headers) { console.log(head) }
+      for (let head of response.headers) { headers[head[0]] = head[1]; }
+      console.log(headers);
       return response.json();
     })
     .then( json => {
       let cards = json.cards;
       let setArr = []; // array for the card set names, we can probably refactor this out, just use setDict
       
-      cards.forEach( card => {
-        // console.log(card);
-        let output =
-          `<div class="cardContainer">
-            <div class="thumbnail">
-              <img class="thumbnailIMG" id="${card.id}" src="images/loading.gif" />
-            </div>
-          </div>`
-        ;
-        searchResultsDiv.innerHTML += output;
-
-        let newImg = new Image();
-        newImg.cardData = {}
-        newImg.cardData.cardID = card.id;
-        newImg.src = card.imageUrl;
+      createCardHTML(cards, setDict, searchResultsDiv);
       
-        newImg.onload = function () {
-          let ele = document.getElementById(this.cardData.cardID);
-          if (ele) { ele.src = this.src; } // if the element is still on screen, add the image in
-          // it might not be on screen because of the search term changing faster than images can be pulled from the server, I think.
-        }
-        
-        // if the set array doesn't already include this set, then add it
-        // and add the set code to the setDict
-        if (!setArr.includes(card.set)) {
-          setArr.push(card.set);
-          setDict[card.set] = card.setCode;
-        }
-      });
-
       if (!setSelected) {
-        // sort the card set array, then loop through it to add the list to the dropdown menu
-        setArr.sort();
+        let setNames = []; // going to use this array to sort the set names alphabetically
+        for (var key in setDict) {
+          setNames.push(key);
+        }
+        setNames.sort();
         let dropDownSetItem = '';
-        setArr.forEach( (set, index) => {
+        setNames.forEach( setName => {
           dropDownSetItem += 
-            `<option class="dropOption" value="${index}">${set}</option>`;
-        });
-        dropDownList.innerHTML = '<option value="" selected>All Sets</option>' + dropDownSetItem;
+            `<option class="dropOption" value="${setDict[setName]}">${setName}</option>`;
+        })
+        dropDownList.innerHTML = '<option class="dropOption" value="" selected>All Sets</option>' + dropDownSetItem;
       }
       
       if (searchBar.value === "") {
@@ -131,6 +102,41 @@ function clear(div, input) {
   selectedSetCode = "";
   setSelected = false;
 } // end of clear func
+
+
+function createCardHTML(cardsArr, setObj, htmlEle) {
+  
+  cardsArr.forEach( card => {
+    let output =
+      `<div class="cardContainer">
+        <div class="thumbnail">
+          <img class="thumbnailIMG" id="${card.id}" src="images/loading.gif" />
+        </div>
+      </div>`
+    ;
+    htmlEle.innerHTML += output;
+    createCardImg(card);
+
+    // if the current set isn't in the set object, add it
+    if (!setObj.hasOwnProperty(card.set)) {
+      setObj[card.set] = card.setCode;
+    }
+  });
+}
+
+function createCardImg(card) {
+  let newImg = new Image();
+  newImg.cardData = {}
+  newImg.cardData.cardID = card.id;
+  newImg.src = card.imageUrl;
+
+  newImg.onload = function () {
+    let ele = document.getElementById(this.cardData.cardID);
+    if (ele) { ele.src = this.src; } // if the element is still on screen, add the image in
+    // it might not be on screen because of the search term changing faster than images can be pulled from the server, I think.
+  }
+}
+
 
 // debounce function I pulled off of google
 function debounced(delay, fn) {
