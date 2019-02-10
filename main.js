@@ -1,146 +1,57 @@
-let searchBar = document.getElementById('searchBar');
-let dropDown = document.getElementById('setDropdownWrap');
-let dropDownList = document.getElementById('setDropdown');
-let searchResultsDiv = document.getElementById('searchResults');
+console.log('hello world');
+let pokemonAPIurlString = "https://api.pokemontcg.io/v1/cards?name=";
 
-let pokemonAPIurlString = "https://api.pokemontcg.io/v1/";
-let selectedSetCode = "";
-let setDict = {};
-let setSelected = false;
+let cardContainer = document.getElementById('cardContainer');
+let loadMoreDiv = document.getElementById('loadMore');
+let searchInput = document.getElementById('input');
 
-let deBouncedAPIcall = debounced(200, searchAPI);
+let searchString = '';
 
-function searchPokes(event) {
-  // clear out the set selection when the search value is 0 characters long
-  if (searchBar.value.length === 0) { 
-    setReset();
+// let deBouncedAPIcall = debounced(100, searchAPI);
+
+function cardSearch(event) {
+  // console.log(event.key);
+  // console.log(event.keyCode);
+
+  
+  searchString = document.getElementById('input').value;
+
+  if (event.key == 'Enter' && searchString.length > 0) {
+    searchString = searchString.split(' ').join('%20');
+    console.log('search: ' + searchString);
+    searchAPI(pokemonAPIurlString, searchString);
   }
+}
 
-  let userInput = searchBar.value;
-  let dropDownEle = document.getElementById('setDropdown');
-
-  // good to go, send off userInput and selectedSetCode to the API:
-  if (userInput !== "") { // search if the string isn't empty
-    // submit to search
-    deBouncedAPIcall(userInput, selectedSetCode);
-    // and show the set dropdown list
-    dropDown.style.display = "block";
-  } else if (userInput === "") {
-    dropDown.style.display = "none";
-    clear(searchResultsDiv, userInput);
-  }
-} //  end of searchPokes func
-
-function searchAPI(pokemonName, setCode) {
-  // we're searching again, so clear out the images on screen
-  searchResultsDiv.innerHTML = '' // there is probably a more optimized way to do this
-  
-  
-  let fullURL = pokemonAPIurlString + 'cards?name=' + pokemonName + '&setCode=' + setCode;
-  console.log(fullURL);
-
-  let headers = {} // to store the response headers
-  
-  fetch(fullURL)
-    .then( response => {
-      for (let head of response.headers) { headers[head[0]] = head[1]; }
-      // console.log(headers);
-      return response.json();
+function searchAPI(APIendpoint, searchString) {
+  let queryString = APIendpoint + searchString;
+  // console.log(queryString);
+  cardContainer.innerText = "loading...";
+  fetch(queryString)
+    .then(res => {
+      return res.json();
     })
-    .then( json => {
-      let cards = json.cards;
-      let setArr = [];
-      
-      createCardHTML(cards, setDict, searchResultsDiv);
+    .then(json => {
+      // console.log(json);
+      cardContainer.innerHTML = '';
+      json.cards.forEach( card => {
+        let ele = createCardHTML(card);
+        cardContainer.innerHTML += ele;
+      });
 
-      
-      if (!setSelected) {
-        cards.forEach( card => {
-          if (!setArr.includes(card.set)) {
-            setArr.push(card.set);
-          }
-        });
-        setArr.sort();
-        let dropDownSetItem = '';
-        setArr.forEach( setName => {
-          dropDownSetItem += 
-            `<option class="dropOption" value="${setDict[setName]}">${setName}</option>`;
-        })
-        dropDownList.innerHTML = '<option class="dropOption" value="" selected>All Sets</option>' + dropDownSetItem;
-      }
-      
-      if (searchBar.value === "") {
-        setReset();
-        clear(searchResultsDiv, pokemonName);
-        // clear(dropDownList, pokemonName);
-      }
-    });
+    })
+}   
+
+function createCardHTML(card) {
+  let ele = 
+  `<div class="card">
+    <div class="cardIMGContainer">
+      <img class="cardIMG" id="${card.id}" src="${card.imageUrlHiRes}" />
+    </div>
+  </div>`;
+
+  return ele;
 }
-
-function setSelect(value) {
-  setSelected = true;
-  console.log(value);
-  let selectedList = document.getElementById('setDropdown');
-  let selectedText = selectedList.options[selectedList.selectedIndex].text;
-  let userInput = searchBar.value;
-  selectedSetCode = value;
-
-  // if the user has selected all sets, clear out the set code and reset the setSelected state
-  if (selectedText === 'All Sets') {
-    setReset();
-  }
-  searchAPI(userInput, selectedSetCode);
-}
-
-function setReset() {
-  console.log('set reset');
-  selectedSetCode = '';
-  setSelected = false;
-}
-
-function clear(div, input) {
-  console.log('clearing out the div and input given: ' + div);
-  if (div !== "") {
-    div.innerHTML = "";
-  }
-  input = "";
-  selectedSetCode = "";
-  setSelected = false;
-} // end of clear func
-
-
-function createCardHTML(cardsArr, setObj, htmlEle) {
-  cardsArr.forEach( card => {
-    let output =
-      `<div class="cardContainer">
-        <div class="thumbnail">
-          <img class="thumbnailIMG" id="${card.id}" src="images/loading.gif" />
-        </div>
-      </div>`
-    ;
-    htmlEle.innerHTML += output;
-    createCardImg(card);
-
-    // if the current set isn't in the set object, add it
-    if (!setObj.hasOwnProperty(card.set)) {
-      setObj[card.set] = card.setCode;
-    }
-  });
-}
-
-function createCardImg(card) {
-  let newImg = new Image();
-  newImg.cardData = {}
-  newImg.cardData.cardID = card.id;
-  newImg.src = card.imageUrl;
-
-  newImg.onload = function () {
-    let ele = document.getElementById(this.cardData.cardID);
-    if (ele) { ele.src = this.src; } // if the element is still on screen, add the image in
-    // it might not be on screen because of the search term changing faster than images can be pulled from the server, I think.
-  }
-}
-
 
 // debounce function I pulled off of google
 function debounced(delay, fn) {

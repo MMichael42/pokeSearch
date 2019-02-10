@@ -1,5 +1,6 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
 }
 
 .container {
@@ -7,107 +8,70 @@ body {
   margin: auto;
 }
 
-#header1 {
-  color:#bbb;
-  width: 100%;
+.card {
   border: 0px solid black;
-  padding-left: 0px;
-  text-align: center;
-  font-size: 70px;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin-top: 20px;
+  align-self: flex-start;
+}
+.cardIMGContainer {
+  width: 100%;
+  height: auto;
+}
+.cardIMG {
+  width: 100%;
+  height: auto;
+}
+
+#searchHeader {
+  background-color: white;
+  border: 0px solid red;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  margin: auto;
+  height: 80px;
+}
+
+#searchInputContainer {
+  border: 0px solid green;
+  width: 90%;
+  margin: auto;
+  margin-top: 15px;
 }
 
 #input {
-  max-width: 400px;
+  width: 100%;
   margin: auto;
-}
-#searchBar {
-  display: block;
-  width: 100%;
-  height: 40px;
-  line-height: 30px;
-  font-size: 22px;
-  padding-left: 5px;
-  margin: auto;
-  margin-bottom: 20px;
-  border: 1px solid #bbb;
-  border-radius: 2px;
-}
-#setDropdownWrap {
-  width: 100%;
-  position: relative;
-  margin-bottom: 20px;
-  display: none;
-}
-#setDropdown {
-  width: 100%;
-  border: 1px solid #ccc;
-  font-size: 18px;
-  line-height: 40px;
-  height: 40px;
-  background-color: white;
-}
-.dropOption {
-  width: 100%;
+  font-size: 16px;
+  padding: 12px 0px 12px 10px;
+  box-sizing: border-box;
 }
 
-#searchResults {
+#cardContainer {
+  border: 0px solid red;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  border: 0px solid #ccc;
-  width: 100%;
+  justify-content: center;
+  width: 99%;
+  text-align: center;
   margin: auto;
   margin-bottom: 100px;
-  justify-content: center;
-}
-.cardContainer {
-  width: 400px;
-  height: auto;
-  padding-top: 0px;
-  margin-right: 0px;
-  margin-left: 0px;
-  margin-bottom: 20px;
-  align-self: flex-start;
-}
-.thumbnail {
-  width: 100%;
-  height: auto;
-  border: 0px solid rgb(121, 115, 115);
-  margin: auto;
-  margin-bottom: 0px;
-}
-.thumbnailIMG {
-  border: 0px solid gray;
-  width: 100%;
-  background: url(/images/loading.gif) 50% no-repeat;
-  -webkit-transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
-  transition:         all 600ms cubic-bezier(0.23, 1, 0.32, 1);
-  z-index: -1;
-  border-radius: 10px;
-  box-shadow: 1px 1px 3px 1px #aaaaaa;
-}
-.thumbnailIMG:hover {
-  transform: scale(1.0);
-  /* border: 1px solid black; */
-  /* box-shadow: 1px 1px 3px 1px #aaaaaa; */
-}
-#textInfo {
-  border: 0px solid black;
-  width: 100%;
-  text-align: left;
-  padding: 05px;
+  margin-top: 80px;
 }
 
+
 @media screen and (min-width: 426px) {
-  .cardContainer {
-    width: 245px;
-    margin-left: 10px;
-    margin-right: 10px;
+  .cardIMG {
+    width: 90%;
+    height: auto;
   }
-  .thumbnailIMG:hover {
-    transform: scale(1.05);
-    z-index: 10;
-    border: 0px solid #858585;
-    box-shadow: 1px 1px 3px 1px #aaaaaa;
+
+  #searchInputContainer {
+    width: 400px;
   }
 }
