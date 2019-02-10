@@ -1,0 +1,104 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+}
+
+.container {
+  max-width: 100%;
+  margin: auto;
+}
+
+.card {
+  border: 0px solid black;
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin-top: 20px;
+  align-self: flex-start;
+}
+.cardIMGContainer {
+  width: 100%;
+  height: auto;
+}
+.cardIMG {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.setYear {
+  border: 0px solid black;
+  width: 100%;
+  height: auto;
+  margin-top: 40px;
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+button.set {
+  border: 1px solid red;
+  margin: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+img.setSymbol {
+  width: auto;
+  height: 30px;
+  margin: 10px;
+  margin-bottom: 0px;
+}
+
+#searchHeader {
+  background-color: white;
+  border: 0px solid red;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  margin: auto;
+  height: 80px;
+}
+
+#searchInputContainer {
+  border: 0px solid green;
+  width: 90%;
+  margin: auto;
+  margin-top: 15px;
+}
+
+#input {
+  width: 100%;
+  margin: auto;
+  font-size: 16px;
+  padding: 12px 0px 12px 10px;
+  box-sizing: border-box;
+}
+
+#cardContainer {
+  border: 0px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 99%;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 100px;
+  margin-top: 80px;
+}
+
+#setContainer {
+  border: 0px solid black;
+  width: 100%;
+}
+
+@media screen and (min-width: 426px) {
+  .cardIMG {
+    width: 90%;
+    height: auto;
+  }
+
+  #searchInputContainer {
+    width: 400px;
+  }
+}
