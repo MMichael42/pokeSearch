@@ -11,7 +11,7 @@ body {
 .card {
   border: 0px solid black;
   width: 100%;
-  max-width: 350px;
+  max-width: 450px;
   height: auto;
   margin-top: 20px;
   align-self: flex-start;
@@ -33,13 +33,17 @@ body {
   margin-top: 40px;
   margin-left: 10px;
   font-size: 25px;
+  color: white;
 }
 
 button.set {
-  border: 1px solid red;
+  border: 1px solid black;
+  border-radius: 5px;
   margin: 10px;
   font-size: 20px;
   cursor: pointer;
+  background-color: white;
+  color: black;
 }
 img.setSymbol {
   width: auto;
@@ -90,6 +94,8 @@ img.setSymbol {
 #setContainer {
   border: 0px solid black;
   width: 100%;
+  padding-top: 10px;
+  background-color: black;
 }
 
 @media screen and (min-width: 426px) {

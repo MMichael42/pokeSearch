@@ -11,8 +11,6 @@ let setContainer = document.getElementById('setContainer');
 let searchString = '';
 
 function cardSearch(event) {
-  // console.log(event.key);
-  // console.log(event.keyCode);
   searchString = document.getElementById('input').value;
 
   if (event.key == 'Enter' && searchString.length > 0) {
@@ -31,14 +29,9 @@ function searchAPI(APIendpoint, searchString) {
       return res.json();
     })
     .then(json => {
-      // console.log(json);
-      // cardContainer.innerHTML = '';
-      // json.cards.forEach( card => {
-      //   let ele = createCardHTML(card);
-      //   cardContainer.innerHTML += ele;
-      // });
+      console.log(json);
       createCardGallery(json.cards);
-    })
+    });
 }   
 
 function createCardHTML(card) {
@@ -63,7 +56,6 @@ function createCardGallery(cardArr) {
 async function getSets(url) {
   const res = await fetch(url);
   const data = await res.json();
-  // console.log(data);
   return data;
 }
 
@@ -81,7 +73,9 @@ function buildSetList(setsArr) {
       setYear = currentSetYear;
     }
 
-    setButton.innerHTML = `<button class="set" onclick="loadSet('${set.code}', ${set.totalCards})">${set.name}<img class="setSymbol" src="${set.symbolUrl}"/></button>`;
+    setButton.innerHTML = 
+    `<button class="set" onclick="loadSet('${set.code}', ${set.totalCards})">${set.name}<img class="setSymbol" src="${set.symbolUrl}"/></button>`;
+
     setContainer.appendChild(setButton.firstChild);
   });
 }
@@ -89,17 +83,41 @@ function buildSetList(setsArr) {
 async function loadSet(setCode, count) {
   console.log("set: " + setCode + ", count: " + count);
   window.scrollTo(0,0);
+
   cardContainer.innerText = "loading...";
-  const res = await fetch(baseURL + "cards?setCode=" + setCode);
+
+  const res = await fetch(baseURL + "cards?setCode=" + setCode + '&pageSize=' + count);
   const data = await res.json();
   console.log(data);
-  createCardGallery(data.cards);
+
+  let cardArr = [...data.cards].sort((a, b) => {
+    let compare = 0;
+    let numA = parseInt(a.number);
+    let numB = parseInt(b.number);
+
+    if (numA > numB) compare = 1;
+    if (numA < numB) compare = -1;
+    
+    return compare;
+  });
+
+  createCardGallery(cardArr);
 }
+
+
 
 window.onload = function() {
   console.log('window load');
   getSets(setsAPIString).then(data => {
-    console.log(data.sets[0]);
     buildSetList(data.sets);
   });
+}
+
+document.onkeypress = function(event) {
+  if (event.key == 'w' && searchInput !== document.activeElement) {
+    window.scrollTo(0, 0);
+  }
+  if (event.key == 's' && searchInput !== document.activeElement) {
+    setContainer.scrollIntoView();
+  }
 }
