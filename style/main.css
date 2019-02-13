@@ -8,10 +8,21 @@ body {
   margin: auto;
 }
 
+.slider {
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  transition: opacity .2s;
+  margin: auto;
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
 .card {
   border: 0px solid black;
   width: 100%;
-  max-width: 450px;
+  max-width: 425px;
   height: auto;
   margin-top: 20px;
   align-self: flex-start;
@@ -53,30 +64,35 @@ img.setSymbol {
 }
 
 #searchHeader {
-  background-color: white;
   border: 0px solid red;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: white;
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
   width: 100%;
   margin: auto;
-  height: 80px;
+  /* height: 80px; */
 }
-
 #searchInputContainer {
   border: 0px solid green;
   width: 90%;
   margin: auto;
-  margin-top: 15px;
+  margin-top: 10px;
 }
-
 #input {
   width: 100%;
   margin: auto;
   font-size: 16px;
   padding: 12px 0px 12px 10px;
   box-sizing: border-box;
+}
+
+#slidecontainer {
+  border: 0px solid black;
+  width: 200px;
+  margin: auto;
 }
 
 #cardContainer {
@@ -87,7 +103,7 @@ img.setSymbol {
   width: 99%;
   text-align: center;
   margin: auto;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
   margin-top: 80px;
 }
 
@@ -99,6 +115,9 @@ img.setSymbol {
 }
 
 @media screen and (min-width: 426px) {
+  .card {
+    max-width: 300px;
+  }
   .cardIMG {
     width: 90%;
     height: auto;

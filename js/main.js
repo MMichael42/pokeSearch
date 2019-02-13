@@ -7,8 +7,10 @@ let cardContainer = document.getElementById('cardContainer');
 let loadMoreDiv = document.getElementById('loadMore');
 let searchInput = document.getElementById('input');
 let setContainer = document.getElementById('setContainer');
+let slider = document.getElementById('myRange');
 
 let searchString = '';
+let cardDivs;
 
 function cardSearch(event) {
   searchString = document.getElementById('input').value;
@@ -21,6 +23,7 @@ function cardSearch(event) {
 }
 
 function searchAPI(APIendpoint, searchString) {
+  window.scrollTo(0,0);
   let queryString = APIendpoint + searchString;
   // console.log(queryString);
   cardContainer.innerText = "loading...";
@@ -51,6 +54,10 @@ function createCardGallery(cardArr) {
     let ele = createCardHTML(card);
     cardContainer.innerHTML += ele;
   });
+  // get all the cards in a node list for size manipulation later
+  cardDivs = document.querySelectorAll('.card');
+  // now that we've loaded some new cards, reset the image size slider to the middle position
+  slider.value = 300;
 }
 
 async function getSets(url) {
@@ -104,7 +111,11 @@ async function loadSet(setCode, count) {
   createCardGallery(cardArr);
 }
 
-
+slider.oninput = function(event) {
+  console.log(this.value);
+  // let cardDivs = document.querySelectorAll('.card');
+  console.log(cardDivs);
+}
 
 window.onload = function() {
   console.log('window load');
