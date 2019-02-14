@@ -34,8 +34,13 @@ function searchAPI(APIendpoint, searchString) {
       return res.json();
     })
     .then(json => {
-      console.log(json);
-      createCardGallery(json.cards);
+      // console.log(json.cards.length);
+      if (json.cards.length === 0) {
+        // no cards returned from search
+        cardContainer.innerText = "No cards found."
+      } else {
+        createCardGallery(json.cards);
+      }
     });
 }   
 
