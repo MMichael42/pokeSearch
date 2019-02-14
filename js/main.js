@@ -52,6 +52,7 @@ function createCardHTML(card) {
 
 function createCardGallery(cardArr) {
   cardContainer.innerHTML = '';
+  slider.style.display = "block";
   cardArr.forEach( card => {
     let ele = createCardHTML(card);
     cardContainer.innerHTML += ele;
@@ -80,7 +81,7 @@ function buildSetList(setsArr) {
 
     if (currentSetYear !== setYear) {
       let yearDiv = document.createElement('div');
-      yearDiv.innerHTML = `<div class="setYear">${currentSetYear}</div>`;
+      yearDiv.innerHTML = `<div class="setYear" id="year${currentSetYear}">${currentSetYear}</div>`;
       setContainer.appendChild(yearDiv.firstChild); 
       setYear = currentSetYear;
     }
@@ -95,6 +96,7 @@ function buildSetList(setsArr) {
 async function loadSet(setCode, count) {
   console.log("set: " + setCode + ", count: " + count);
   window.scrollTo(0,0);
+  searchInput.value = '';
 
   cardContainer.innerText = "loading...";
 
@@ -150,6 +152,7 @@ function changeCardSize(nodeList) {
 
 window.onload = function() {
   console.log('window load');
+  slider.style.display = "none";
   getSets(setsAPIString).then(data => {
     buildSetList(data.sets);
   });

@@ -62,6 +62,10 @@ img.setSymbol {
   margin-bottom: 0px;
 }
 
+#year1999 {
+  margin-top: 95px;
+}
+
 #searchHeader {
   border: 0px solid red;
   display: flex;
