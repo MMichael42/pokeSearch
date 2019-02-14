@@ -39,11 +39,9 @@ body {
 }
 
 .setYear {
-  border: 0px solid black;
-  width: 100%;
-  height: auto;
+  border: 0px solid white;
   margin-top: 40px;
-  margin-left: 10px;
+  padding-left: 10px;
   font-size: 25px;
   color: white;
 }
