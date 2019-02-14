@@ -128,6 +128,7 @@ function changeCardSize(nodeList) {
     switch (val) {
       case 0:
         card.style.maxWidth = "100px";
+        window.scrollTo(0,0);
         break;
       case 1:
         card.style.maxWidth = "200px";
@@ -139,7 +140,7 @@ function changeCardSize(nodeList) {
         card.style.maxWidth = "400px";
         break;
       case 4:
-        card.style.maxWidth = "500px";
+        card.style.maxWidth = "600px";
         break;
       default:
         break;
