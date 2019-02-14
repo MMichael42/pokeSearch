@@ -68,9 +68,6 @@ function createCardGallery(cardArr) {
   changeCardSize(cardDivs);
 };
 
-  // now that we've loaded some new cards, reset the image size slider to the middle position
-  // slider.value = 2;
-
 async function getSets(url) {
   const res = await fetch(url);
   const data = await res.json();
@@ -123,11 +120,6 @@ async function loadSet(setCode, count) {
   createCardGallery(cardArr);
 }
 
-slider.oninput = function(event) {
-  cardDivs = document.querySelectorAll('.card');
-  changeCardSize(cardDivs);
-}
-
 function changeCardSize(nodeList) {
   nodeList.forEach( card => {
     let val = parseInt(slider.value);
@@ -155,12 +147,9 @@ function changeCardSize(nodeList) {
   })
 }
 
-window.onload = function() {
-  console.log('window load');
-  slider.style.display = "none";
-  getSets(setsAPIString).then(data => {
-    buildSetList(data.sets);
-  });
+slider.oninput = function(event) {
+  cardDivs = document.querySelectorAll('.card');
+  changeCardSize(cardDivs);
 }
 
 document.onkeypress = function(event) {
@@ -170,4 +159,12 @@ document.onkeypress = function(event) {
   if (event.key == 's' && searchInput !== document.activeElement) {
     setContainer.scrollIntoView();
   }
+}
+
+window.onload = function() {
+  console.log('window load');
+  slider.style.display = "none";
+  getSets(setsAPIString).then(data => {
+    buildSetList(data.sets);
+  });
 }
