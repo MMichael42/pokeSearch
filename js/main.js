@@ -34,10 +34,10 @@ function searchAPI(APIendpoint, searchString) {
       return res.json();
     })
     .then(json => {
-      // console.log(json.cards.length);
+      console.log('number of cards returned: ' + json.cards.length);
       if (json.cards.length === 0) {
         // no cards returned from search
-        cardContainer.innerText = "No cards found."
+        cardContainer.innerText = "No cards found"
       } else {
         createCardGallery(json.cards);
       }
