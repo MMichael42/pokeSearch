@@ -12,6 +12,8 @@ let slider = document.getElementById('myRange');
 let searchString = '';
 let cardDivs;
 
+let sliderValues = [100, 200, 300, 400, 500]
+
 function cardSearch(event) {
   searchString = document.getElementById('input').value;
 
@@ -44,7 +46,7 @@ function createCardHTML(card) {
       <img class="cardIMG" id="${card.id}" src="${card.imageUrlHiRes}" />
     </div>
   </div>`;
-
+  
   return ele;
 }
 
@@ -56,9 +58,12 @@ function createCardGallery(cardArr) {
   });
   // get all the cards in a node list for size manipulation later
   cardDivs = document.querySelectorAll('.card');
+
+  changeCardSize(cardDivs);
+};
+
   // now that we've loaded some new cards, reset the image size slider to the middle position
-  slider.value = 300;
-}
+  // slider.value = 2;
 
 async function getSets(url) {
   const res = await fetch(url);
@@ -112,9 +117,34 @@ async function loadSet(setCode, count) {
 }
 
 slider.oninput = function(event) {
-  console.log(this.value);
-  // let cardDivs = document.querySelectorAll('.card');
-  console.log(cardDivs);
+  cardDivs = document.querySelectorAll('.card');
+  changeCardSize(cardDivs);
+}
+
+function changeCardSize(nodeList) {
+  nodeList.forEach( card => {
+    let val = parseInt(slider.value);
+
+    switch (val) {
+      case 0:
+        card.style.maxWidth = "100px";
+        break;
+      case 1:
+        card.style.maxWidth = "200px";
+        break;
+      case 2:
+        card.style.maxWidth = "300px";
+        break;
+      case 3:
+        card.style.maxWidth = "400px";
+        break;
+      case 4:
+        card.style.maxWidth = "500px";
+        break;
+      default:
+        break;
+    }
+  })
 }
 
 window.onload = function() {

@@ -22,10 +22,11 @@ body {
 .card {
   border: 0px solid black;
   width: 100%;
-  max-width: 425px;
+  max-width: 400px;
   height: auto;
   margin-top: 20px;
   align-self: flex-start;
+  /* transition: all .2s; */
 }
 .cardIMGContainer {
   width: 100%;
@@ -93,6 +94,8 @@ img.setSymbol {
   border: 0px solid black;
   width: 200px;
   margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #cardContainer {
@@ -115,9 +118,9 @@ img.setSymbol {
 }
 
 @media screen and (min-width: 426px) {
-  .card {
+  /* .card {
     max-width: 300px;
-  }
+  } */
   .cardIMG {
     width: 90%;
     height: auto;
