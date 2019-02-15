@@ -9,15 +9,41 @@ body {
 }
 
 .slider {
-  width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  /* width: 100%;
+  height: 25px;
+  opacity: 0.7; 
   transition: opacity .2s;
-  margin: auto;
+  margin: auto; */
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 7px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
 }
 .slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  opacity: 1;
 }
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 30px; /* Set a specific slider handle width */
+  height: 30px; /* Slider handle height */
+  background: #4CAF50;
+  background: url('../images/pokeball.png');
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
 
 .card {
   border: 0px solid black;
@@ -96,8 +122,8 @@ img.setSymbol {
   border: 0px solid black;
   width: 200px;
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #cardContainer {
@@ -109,7 +135,7 @@ img.setSymbol {
   text-align: center;
   margin: auto;
   margin-bottom: 10px;
-  margin-top: 100px;
+  margin-top: 110px;
 }
 
 #setContainer {

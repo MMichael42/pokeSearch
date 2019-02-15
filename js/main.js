@@ -47,7 +47,7 @@ function searchAPI(APIendpoint, searchString) {
 }   
 
 function createCardHTML(card) {
-  console.log(card);
+  // console.log(card);
   let ele = 
   `<div class="card" id="${card.id}">
     <div class="cardIMGContainer">
