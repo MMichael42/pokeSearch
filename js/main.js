@@ -20,6 +20,8 @@ function cardSearch(event) {
   if (event.key == 'Enter' && searchString.length > 0) {
     searchString = searchString.split(' ').join('%20');
     console.log('search: ' + searchString);
+    // remove focus from search input: 
+    searchInput.blur();
     searchAPI(pokemonAPIurlString, searchString);
   }
 }
