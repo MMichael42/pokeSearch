@@ -47,10 +47,11 @@ function searchAPI(APIendpoint, searchString) {
 }   
 
 function createCardHTML(card) {
+  console.log(card);
   let ele = 
-  `<div class="card">
+  `<div class="card" id="${card.id}">
     <div class="cardIMGContainer">
-      <img class="cardIMG" id="${card.id}" src="${card.imageUrlHiRes}" />
+      <img class="cardIMG" src="${card.imageUrlHiRes}" />
     </div>
   </div>`;
   
@@ -134,19 +135,26 @@ function changeCardSize(nodeList) {
     switch (val) {
       case 0:
         card.style.maxWidth = "100px";
+        card.style.margin = "5px";
         window.scrollTo(0,0);
         break;
       case 1:
         card.style.maxWidth = "200px";
+        card.style.margin = "5px";
+        // window.scrollTo(0,0);
         break;
       case 2:
         card.style.maxWidth = "300px";
+        card.style.margin = "5px";
+        // cardContainer.scrollIntoView();
         break;
       case 3:
         card.style.maxWidth = "400px";
+        card.style.margin = "7px";
         break;
       case 4:
         card.style.maxWidth = "600px";
+        card.style.margin = "10px";
         break;
       default:
         break;

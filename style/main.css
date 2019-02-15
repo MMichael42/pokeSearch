@@ -24,7 +24,8 @@ body {
   width: 100%;
   max-width: 400px;
   height: auto;
-  margin-top: 20px;
+  margin: 5px;
+  /* margin-top: 10px; */
   align-self: flex-start;
 }
 .cardIMGContainer {
@@ -119,14 +120,6 @@ img.setSymbol {
 }
 
 @media screen and (min-width: 426px) {
-  /* .card {
-    max-width: 300px;
-  } */
-  .cardIMG {
-    width: 90%;
-    height: auto;
-  }
-
   #searchInputContainer {
     width: 400px;
   }
