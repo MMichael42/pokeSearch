@@ -26,7 +26,6 @@ body {
   height: auto;
   margin-top: 20px;
   align-self: flex-start;
-  /* transition: all .2s; */
 }
 .cardIMGContainer {
   width: 100%;

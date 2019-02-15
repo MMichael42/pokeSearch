@@ -121,6 +121,11 @@ async function loadSet(setCode, count) {
 }
 
 function changeCardSize(nodeList) {
+  if (!nodeList) {
+    console.log('empty node list!');
+    slider.value = 2;
+    return;
+  }
   nodeList.forEach( card => {
     let val = parseInt(slider.value);
 
@@ -153,11 +158,35 @@ slider.oninput = function(event) {
 }
 
 document.onkeypress = function(event) {
+
+  // go to top of screen on 'w' press
   if (event.key == 'w' && searchInput !== document.activeElement) {
     window.scrollTo(0, 0);
   }
+  // go to set selection on 's' press
   if (event.key == 's' && searchInput !== document.activeElement) {
     setContainer.scrollIntoView();
+  }
+  // below: key presses to change card size (1-5);
+  if (event.key == '1' && searchInput !== document.activeElement) {
+    slider.value = 0;
+    changeCardSize(cardDivs);
+  }
+  if (event.key == '2' && searchInput !== document.activeElement) {
+    slider.value = 1;
+    changeCardSize(cardDivs);
+  }
+  if (event.key == '3' && searchInput !== document.activeElement) {
+    slider.value = 2;
+    changeCardSize(cardDivs);
+  }
+  if (event.key == '4' && searchInput !== document.activeElement) {
+    slider.value = 3;
+    changeCardSize(cardDivs);
+  }
+  if (event.key == '5' && searchInput !== document.activeElement) {
+    slider.value = 4;
+    changeCardSize(cardDivs);5
   }
 }
 
