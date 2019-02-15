@@ -154,7 +154,7 @@ function changeCardSize(nodeList) {
         break;
       case 4:
         card.style.maxWidth = "600px";
-        card.style.margin = "10px";
+        card.style.margin = "7px";
         break;
       default:
         break;
