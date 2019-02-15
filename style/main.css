@@ -30,17 +30,18 @@ body {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
+  border: 0;
   width: 30px; /* Set a specific slider handle width */
   height: 30px; /* Slider handle height */
-  background: #4CAF50;
   background: url('../images/pokeball.png');
   cursor: pointer; /* Cursor on hover */
 }
 
 .slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #4CAF50; /* Green background */
+  border: 0;
+  width: 30px; /* Set a specific slider handle width */
+  height: 350x; /* Slider handle height */
+  background: url('../images/pokeball.png');
   cursor: pointer; /* Cursor on hover */
 }
 
