@@ -41,17 +41,18 @@ function searchAPI(APIendpoint, searchString) {
         // no cards returned from search
         cardContainer.innerText = "No cards found"
       } else {
+        // sorting of this array would go here if it's possible
         createCardGallery(json.cards);
       }
     });
 }   
 
 function createCardHTML(card) {
-  // console.log(card);
+  console.log(card);
   let ele = 
   `<div class="card" id="${card.id}">
     <div class="cardIMGContainer">
-      <img class="cardIMG" src="${card.imageUrlHiRes}" />
+      <img class="cardIMG" src="${card.imageUrlHiRes}" title="${card.name}" />
     </div>
   </div>`;
   
@@ -196,7 +197,7 @@ document.onkeypress = function(event) {
   }
   if (event.key == '5' && searchInput !== document.activeElement) {
     slider.value = 4;
-    changeCardSize(cardDivs);5
+    changeCardSize(cardDivs);
   }
 }
 
